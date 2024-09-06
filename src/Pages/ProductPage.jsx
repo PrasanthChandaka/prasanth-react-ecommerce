@@ -1,24 +1,7 @@
 import { Link, useParams } from "react-router-dom";
-import { assets, products } from "../assets/assets";
-import img from "../assets/p_img2_1.png";
-import { ShoppingCart } from "lucide-react";
+import { assets } from "../assets/assets";
 import { useContext, useEffect, useState } from "react";
 import { Store } from "../ContextProvider/context";
-import toast from "react-hot-toast";
-
-const dummyObj = {
-  _id: "aaaaa",
-  name: "Women Round Neck Cotton Top",
-  description:
-    "A lightweight, usually knitted, pullover shirt, close-fitting and with a round neckline and short sleeves, worn as an undershirt or outer garment.",
-  price: 100,
-  image: [img, img, img],
-  category: "Women",
-  subCategory: "Topwear",
-  sizes: ["S", "M", "L"],
-  date: 1716634345448,
-  bestseller: true,
-};
 
 const ProductPage = () => {
   const params = useParams();
@@ -26,29 +9,37 @@ const ProductPage = () => {
   const [relatedItem, setRelatedItem] = useState([]);
   const [Image, setImage] = useState("");
   const [size, setSize] = useState("");
-  const { addToCart } = useContext(Store);
+  const { products, addToCart } = useContext(Store);
+
+  const getProduct = async () => {
+    products.map((each) => {
+      if (each._id === params.id) {
+        setProductItem(each);
+        setImage(each.image[0]);
+        return null;
+      }
+    });
+  };
 
   useEffect(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth", // Add smooth scrolling effect
     });
-    const getProduct = () => {
-      const item = products.find((each) => each._id === params.id);
-      setProductItem(item);
-      setImage(item.image[0]);
-    };
     getProduct();
-  }, [params.id, productItem]);
+  }, [productItem, params.id]);
 
   useEffect(() => {
+    let productsCopy = products.slice();
     const getRelated = () => {
-      const related = products.filter(
-        (each) =>
-          each.category === productItem.category && each.id !== params.id
+      productsCopy = productsCopy.filter(
+        (each) => each.category === productItem.category
+      );
+      productsCopy = productsCopy.filter(
+        (each) => each.subCategory === productItem.subCategory
       );
 
-      setRelatedItem(related.slice(0, 4));
+      setRelatedItem(productsCopy.slice(0, 4));
     };
     getRelated();
   }, [productItem, params.id]);
@@ -72,8 +63,13 @@ const ProductPage = () => {
               />
             ))}
           </div>
-          <div className="w-full flex-grow">
-            <img className="rounded-xl w-full" src={Image} alt="hero-img" />
+          <div className="w-full">
+            <img
+              data-role="imagemagnifier"
+              className="rounded-xl w-full sm:w-[80%] object-cover"
+              src={Image}
+              alt="hero-img"
+            />
           </div>
         </div>
 
@@ -120,9 +116,7 @@ const ProductPage = () => {
             <button
               className="btn-primary h-[38px] w-fit"
               type="button"
-              onClick={() =>
-                size ? addToCart() : toast.error("Please choose a size")
-              }
+              onClick={() => addToCart(productItem, size)}
             >
               Add to Cart
             </button>
@@ -146,7 +140,7 @@ const ProductPage = () => {
             Reviews
           </h2>
         </div>
-        <div className="text-sm md:text-[18px] text-black dark:text-white gap-3 border border-slate-300 p-5">
+        <div className="text-sm text-black dark:text-white gap-3 pt-5">
           <p>
             An e-commerce website is an online platform that facilitates the
             buying and selling of products or services over the internet. It
@@ -173,13 +167,11 @@ const ProductPage = () => {
           {relatedItem?.map((each) => (
             <div className="rounded-lg overflow-hidden pb-5" key={each._id}>
               <div className="overflow-hidden">
-                <Link to={`/product/${each._id}`}>
-                  <img
-                    className="hover:scale-[1.1] transition-all duration-300"
-                    src={each.image[0]}
-                    alt={each.title}
-                  />
-                </Link>
+                <img
+                  className="hover:scale-[1.1] transition-all duration-300"
+                  src={each.image[0]}
+                  alt={each.title}
+                />
               </div>
               <h2 className="heading2 mb-5">{each.name}</h2>
               <div className="flex justify-between gap-1 items-center py-2">

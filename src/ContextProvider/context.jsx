@@ -5,29 +5,38 @@ import toast from "react-hot-toast";
 export const Store = createContext();
 
 const ContextProvider = ({ children }) => {
-  const [cartItem, setCartItem] = useState([]);
-  const addToCart = (item) => {
-    const exist = cartItem.find((x) => x._id === item._id);
-    if (exist) {
-      setCartItem((prev) =>
-        prev.map((each) =>
-          each._id === item._id
-            ? { ...each, quantity: each.quantity + 1 }
-            : each
-        )
-      );
-      toast.success("Go to cart");
+  const [cartItems, setCartItems] = useState([]);
+
+  const addToCart = (item, size) => {
+    const existingItem = cartItems.find(
+      (i) => i._id === item._id && i.size === size
+    );
+    if (size) {
+      if (existingItem) {
+        setCartItems((prev) =>
+          prev.map((each) =>
+            each._id === item._id && each.size === size
+              ? { ...each, quantity: each.quantity + 1, size: size }
+              : each
+          )
+        );
+        toast.success("Go to cart");
+      } else {
+        let obj = { ...item, quantity: 1, size };
+        setCartItems((prev) => [...prev, obj]);
+        toast.success("Item Added to cart");
+      }
     } else {
-      cartItem.push({ ...item, quantity: 1 });
-      toast.success("Added to cart");
+      toast.error("Please select a size");
+      return;
     }
   };
 
   const values = {
     products,
-    cartItem,
+    cartItems,
+    setCartItems,
     addToCart,
-    setCartItem,
   };
 
   return <Store.Provider value={values}>{children}</Store.Provider>;

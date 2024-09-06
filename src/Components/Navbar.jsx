@@ -10,11 +10,14 @@ import {
   X,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useContext } from "react";
+import { Store } from "../ContextProvider/context";
 
 const Navbar = () => {
   const [mode, setMode] = useState(false);
   const [toggleNav, setToggleNav] = useState(false);
   const ref = useRef(null);
+  const { cartItems } = useContext(Store);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -74,28 +77,34 @@ const Navbar = () => {
         <div className="flex items-center gap-2">
           <div
             onClick={toggleDarkTheme}
-            className="hover:bg-neutral-300 cursor-pointer rounded-full p-2 transition duration-300"
+            className="active:bg-neutral-500 cursor-pointer rounded-full p-2 transition duration-300"
           >
             {mode ? <SunMoon size={18} /> : <Moon size={18} />}
           </div>
-          <div className="hover:bg-neutral-300 transition duration-300 cursor-pointer rounded-full w-fit h-fit p-2">
+          <div className="active:bg-neutral-500 transition duration-300 cursor-pointer rounded-full w-fit h-fit p-2">
             <Search size={18} />
           </div>
-          <div className="hover:bg-neutral-300 transition duration-300 cursor-pointer rounded-full w-fit h-fit p-2">
+          <div className="active:bg-neutral-500 transition duration-300 cursor-pointer rounded-full w-fit h-fit p-2">
             <User size={18} />
           </div>
-          <div className="hover:bg-neutral-300 transition duration-300 cursor-pointer relative rounded-full w-fit h-fit p-2">
+          <div
+            className={`active:bg-neutral-500 transition duration-300 cursor-pointer relative rounded-full w-fit h-fit p-2 4 ${
+              cartItems.length > 0 &&
+              "scale-75 animate-spin transition-all duration-200"
+            }
+            }`}
+          >
             <NavLink to="/cart">
               <ShoppingCart size={18} />
-              <div className="absolute top-0 right-0 w-5 h-5 bg-red-500 rounded-full text-white font-bold text-xs content-center pl-[2px]">
-                55
+              <div className="absolute top-0 right-0 w-5 h-5 bg-orange-500 rounded-full text-white font-bold text-xs text-center">
+                {cartItems.length}
               </div>
             </NavLink>
           </div>
           <div
             ref={ref}
             onClick={() => setToggleNav(!toggleNav)}
-            className="hover:bg-neutral-300 cursor-pointer rounded-full p-2 transition duration-300"
+            className="active:bg-neutral-500 cursor-pointer rounded-full p-2 transition duration-300"
           >
             {toggleNav ? <X size={18} /> : <AlignRight size={18} />}
           </div>

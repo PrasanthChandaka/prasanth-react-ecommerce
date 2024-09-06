@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { assets } from "../assets/assets";
 
 const About = () => {

@@ -10,7 +10,7 @@ const filterCheckList = [
   { id: 3, label: "Kids" },
 ];
 
-const sizes = ["S", "M", "L", "XL", "XXL"];
+const sizes = ["S", "M", "L", "XL", "XXL", "All"];
 
 const subCategories = [
   { id: 1, label: "Topwear" },
@@ -22,8 +22,9 @@ const Collection = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
-  const [sizeCategory, setSizeCategory] = useState([]);
-  const { products, cartItem, addToCart, setCartItem } = useContext(Store);
+  const [sizeCategory, setSizeCategory] = useState("All");
+  const [sortType, setSortType] = useState("");
+  const { products } = useContext(Store);
 
   const categoryFunction = (e) => {
     if (category.includes(e.target.value)) {
@@ -41,16 +42,6 @@ const Collection = () => {
     }
   };
 
-  const sizeCategoryFunction = (e) => {
-    if (sizeCategory.includes(e.target.textContent)) {
-      setSizeCategory((prev) =>
-        prev.filter((item) => item !== e.target.textContent)
-      );
-    } else {
-      setSizeCategory((prev) => [...prev, e.target.textContent]);
-    }
-  };
-
   const applyFilter = () => {
     let productsCopy = products.slice();
     if (category.length > 0) {
@@ -64,13 +55,28 @@ const Collection = () => {
       );
     }
 
-    if (sizeCategory.length > 0) {
+    if (sizeCategory !== "All") {
       productsCopy = productsCopy.filter((product) =>
-        product.sizes.some((size) => sizeCategory.includes(size))
+        product.sizes.some((size) => size === sizeCategory)
       );
     }
 
     setFilteredProducts(productsCopy);
+  };
+
+  const ProductSorting = () => {
+    let productsCopy = filteredProducts.slice();
+    switch (sortType) {
+      case "price_low_to_high":
+        setFilteredProducts(productsCopy.sort((a, b) => a.price - b.price));
+        break;
+      case "price_high_to_low":
+        setFilteredProducts(productsCopy.sort((a, b) => b.price - a.price));
+        break;
+      default:
+        applyFilter();
+        break;
+    }
   };
 
   useEffect(() => {
@@ -81,12 +87,17 @@ const Collection = () => {
     applyFilter();
   }, [category, subCategory, sizeCategory]);
 
+  useEffect(() => {
+    ProductSorting();
+    console.log(sortType);
+  }, [sortType]);
+
   return (
     <div className="my-20 w-full dark:text-white">
       <div className="w-full flex flex-col md:flex-row gap-5">
         {/* left filter container */}
 
-        <div className="bg-white p-5 lg:w-[250px] flex-shrink-0 border border-slate-300 dark:border-slate-700 rounded-xl dark:bg-transparent dark:text-white h-fit">
+        <div className="bg-white p-5 md:w-[250px] flex-shrink-0 border border-slate-300 dark:border-slate-700 rounded-xl dark:bg-transparent dark:text-white h-fit">
           <div className="w-full flex justify-between items-center gap-5">
             <h2 className="heading2">FILTERS</h2>
             <SlidersHorizontal size={18} />
@@ -123,10 +134,12 @@ const Collection = () => {
             <div className="flex flex-wrap gap-3">
               {sizes.map((each) => (
                 <button
-                  className="btn-primary"
+                  className={`btn-primary ${
+                    sizeCategory === each && "border-[2px] border-orange-600"
+                  }`}
                   type="button"
                   key={each}
-                  onClick={sizeCategoryFunction}
+                  onClick={(e) => setSizeCategory(e.target.textContent)}
                 >
                   {each}
                 </button>
@@ -165,10 +178,23 @@ const Collection = () => {
             </h1>
             <div className="flex gap-1 items-center border px-2 rounded-md flex-wrap">
               <p>Sort by:</p>
-              <select className="outline-none bg-transparent">
-                <option value="default">Default</option>
-                <option value="price_high_to_low">Price: High to Low</option>
-                <option value="price_low_to_high">Price: Low to High</option>
+              <select
+                className="outline-none bg-transparent"
+                onChange={(e) => setSortType(e.target.value)}
+              >
+                <option className="bg-black text-white">Default</option>
+                <option
+                  className="bg-black text-white"
+                  value="price_high_to_low"
+                >
+                  Price: High to Low
+                </option>
+                <option
+                  className="bg-black text-white"
+                  value="price_low_to_high"
+                >
+                  Price: Low to High
+                </option>
               </select>
             </div>
           </div>
@@ -177,10 +203,10 @@ const Collection = () => {
 
           <div className="mt-10 grid max-[300px]:grid-cols-1 grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3">
             {filteredProducts.map((each) => (
-              <div className="rounded-lg overflow-hidden pb-5" key={each._id}>
+              <div className="rounded-xl overflow-hidden pb-5" key={each._id}>
                 <NavLink
                   to={`/product/${each._id}`}
-                  className="overflow-hidden"
+                  className="h-full overflow-hidden"
                 >
                   <img
                     className="hover:scale-[1.1] origin-bottom transition-all duration-300"
