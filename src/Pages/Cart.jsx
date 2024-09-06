@@ -91,7 +91,9 @@ const Cart = () => {
                   </div>
                   <p className="para">Size:{each.size}</p>
                   <div className="absolute w-full bottom-1 flex justify-between items-center flex-wrap">
-                    <p className="text-xl sm:2xl font-bold">${each.price}</p>
+                    <p className="text-xl sm:2xl text-white font-bold">
+                      ${each.price}
+                    </p>
 
                     {/* counter */}
 
@@ -139,7 +141,9 @@ const Cart = () => {
             </p>
             <p className="para flex justify-between items-center">
               Discount (-20%)
-              <span className="text-orange-500 font-semibold">${discount}</span>
+              <span className="text-orange-500 font-semibold">
+                -${discount}
+              </span>
             </p>
             <p className="para flex justify-between items-center">
               Delivery Fee
