@@ -7,7 +7,9 @@ const Footer = () => {
       <p className="h-[0.5px] bg-neutral-300 w-full my-5"></p>
       <div className=" grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div className="max-w-[400px]">
-          <img src={assets.logo} className="w-36 mb-3" />
+          <h1 className="font-serif uppercase font-bold text-2xl bg-gradient-to-r from-orange-500 to-orange-900 bg-clip-text text-transparent">
+            flyers
+          </h1>
           <p className="text-neutral-700 text-sm dark:text-neutral-400">
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text

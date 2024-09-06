@@ -53,7 +53,9 @@ const Navbar = () => {
     <div className="sticky top-0 backdrop-blur-lg z-[9999] max-w-7xl mx-auto">
       <div className="mx-auto relative flex py-2 px-6 items-center justify-between gap-2 dark:bg-neutral-950 dark:text-white">
         <Link to="/">
-          <img src={assets.logo} alt="logo" className="w-28 sm:w-36" />
+          <h1 className="font-serif uppercase font-bold text-2xl bg-gradient-to-r from-orange-500 to-orange-900 bg-clip-text text-transparent">
+            flyers
+          </h1>
         </Link>
         <div className="hidden md:flex gap-6 uppercase items-center">
           <NavLink className="relative" to="/">

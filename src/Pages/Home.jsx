@@ -16,7 +16,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="my-20">
+    <div className="">
       <HeaderSection />
       <NewArrivals text="New" span="Arrivals" data={newArrivals} />
       <NewArrivals text="top" span="Selling" data={topSelling} />

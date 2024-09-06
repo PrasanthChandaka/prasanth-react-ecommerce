@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ShoppingBag, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { Store } from "../ContextProvider/context";
 import { Link } from "react-router-dom";
 import emptyCartImage from "../assets/undraw_empty_cart_co35.svg";
@@ -84,9 +84,8 @@ const Cart = () => {
                   <div className="flex justify-between items-center">
                     <h2 className="heading2">{each.name}</h2>
                     <Trash2
-                      className="right-2 top-2"
+                      className="right-2 top-2 text-orange-500 cursor-pointer"
                       size={18}
-                      color="red"
                       onClick={() => deleteProduct(each._id, each.size)}
                     />
                   </div>
@@ -140,7 +139,7 @@ const Cart = () => {
             </p>
             <p className="para flex justify-between items-center">
               Discount (-20%)
-              <span className="text-red-500 font-semibold">${discount}</span>
+              <span className="text-orange-500 font-semibold">${discount}</span>
             </p>
             <p className="para flex justify-between items-center">
               Delivery Fee
