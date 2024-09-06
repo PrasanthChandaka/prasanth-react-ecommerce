@@ -17,6 +17,17 @@ const Cart = () => {
   const deliveryFee = (5 / 100) * parseInt(subTotal);
   const total = subTotal - discount + deliveryFee;
 
+  // remove item from cart
+
+  const deleteProduct = (itemId, size) => {
+    const exist = cartItems.find(
+      (each) => each._id === itemId && each.size === size
+    );
+    if (exist) {
+      setCartItems(cartItems.filter((each) => each !== exist));
+    }
+  };
+
   // updating quantity of an item
 
   const onIncrement = (itemId, count, size) => {
@@ -59,17 +70,25 @@ const Cart = () => {
         Your <span className="span">Cart</span>
       </h1>
       {cartItems?.length > 0 ? (
-        <div className="flex flex-col sm:flex-row gap-3">
+        <div className="flex flex-col sm:flex-row gap-5">
           {/* cart items */}
 
-          <div className="w-full p-3 rounded-lg border border-slate-300 dark:border-slate-700 flex flex-col gap-5">
+          <div className="w-full rounded-lg flex flex-col gap-3">
             {cartItems.map((each, index) => (
-              <div key={index} className="flex gap-2">
+              <div
+                key={index}
+                className="flex gap-2 py-3 border-t border-t-slate-300 dark:border-t-slate-700"
+              >
                 <img className="w-20" src={each.image[0]} alt={each.name} />
                 <div className="relative flex-grow flex flex-col p-2">
                   <div className="flex justify-between items-center">
                     <h2 className="heading2">{each.name}</h2>
-                    <Trash2 className="right-2 top-2" size={18} color="red" />
+                    <Trash2
+                      className="right-2 top-2"
+                      size={18}
+                      color="red"
+                      onClick={() => deleteProduct(each._id, each.size)}
+                    />
                   </div>
                   <p className="para">Size:{each.size}</p>
                   <div className="absolute w-full bottom-1 flex justify-between items-center flex-wrap">
@@ -147,7 +166,7 @@ const Cart = () => {
             <img src={emptyCartImage} alt="emply-img" />
           </div>
           <div className="flex flex-col items-center text-center">
-            <h2 className="heading2 mb-3">Your cart is Empty!</h2>
+            <h2 className="heading2 h-[38px] mb-3">Your cart is Empty!</h2>
             <Link to="/collection">
               <button className="btn-primary w-fit">SHOP NOW</button>
             </Link>
