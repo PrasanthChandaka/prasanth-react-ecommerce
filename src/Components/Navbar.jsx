@@ -20,6 +20,16 @@ const Navbar = () => {
   const { cartItems } = useContext(Store);
 
   useEffect(() => {
+    const visible = () => {
+      if (window.innerWidth > 1024) {
+        setToggleNav(false);
+      }
+    };
+    window.addEventListener("resize", visible);
+    return () => window.removeEventListener("resize", visible);
+  }, []);
+
+  useEffect(() => {
     const handleClickOutside = (event) => {
       if (ref.current && !ref.current.contains(event.target)) {
         setToggleNav(false);
@@ -32,11 +42,13 @@ const Navbar = () => {
 
   useEffect(() => {
     if (toggleNav) {
-      document.body.style.overflowY = "hidden";
+      document.body.style.height = "100vh";
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflowY = "auto";
+      document.body.style.height = "auto";
+      document.body.style.overflow = "auto";
     }
-  }, []);
+  }, [toggleNav]);
 
   const toggleDarkTheme = () => {
     setMode(!mode);
@@ -51,7 +63,7 @@ const Navbar = () => {
 
   return (
     <div className="sticky top-0 backdrop-blur-lg z-[9999] max-w-7xl mx-auto">
-      <div className="mx-auto relative flex py-2 px-6 items-center justify-between gap-2 dark:bg-neutral-950 dark:text-white">
+      <div className="mx-auto relative w-full overflow-hidden flex py-2 px-4 sm:px-6 items-center justify-between gap-2 dark:bg-neutral-950 dark:text-white">
         <Link to="/">
           <h1 className="font-serif uppercase font-bold text-2xl bg-gradient-to-r from-orange-500 to-orange-900 bg-clip-text text-transparent">
             flyers
@@ -106,49 +118,51 @@ const Navbar = () => {
           <div
             ref={ref}
             onClick={() => setToggleNav(!toggleNav)}
-            className="active:bg-neutral-500 cursor-pointer rounded-full p-2 transition duration-300"
+            className="active:bg-neutral-500 block lg:hidden cursor-pointer rounded-full p-2 transition duration-300"
           >
             {toggleNav ? <X size={18} /> : <AlignRight size={18} />}
           </div>
         </div>
       </div>
-      {toggleNav && (
-        <div
-          ref={ref}
-          className="bg-white dark:bg-neutral-900 rounded-b-2xl dark:text-white shadow-xl absolute w-full top-114 left-0 py-16 z-[999]"
-        >
-          <div className="flex flex-col gap-4">
-            <NavLink
-              onClick={() => setToggleNav(false)}
-              className="py-2 px-5 hover:bg-neutral-300"
-              to="/"
-            >
-              Home
-            </NavLink>
-            <NavLink
-              onClick={() => setToggleNav(false)}
-              className="py-2 px-5 hover:bg-neutral-300"
-              to="/collection"
-            >
-              Collection
-            </NavLink>
-            <NavLink
-              onClick={() => setToggleNav(false)}
-              className="py-2 px-5 hover:bg-neutral-300"
-              to="/about"
-            >
-              About
-            </NavLink>
-            <NavLink
-              onClick={() => setToggleNav(false)}
-              className="py-2 px-5 hover:bg-neutral-300"
-              to="/contact"
-            >
-              Contact
-            </NavLink>
-          </div>
+      {/* {toggleNav && ( */}
+      <div
+        ref={ref}
+        className={`bg-white dark:bg-neutral-900 rounded-b-2xl dark:text-white shadow-xl absolute transition duration-200 ease-linear w-full top-114 left-0 ${
+          toggleNav ? "translate-x-0" : "translate-x-[-100vw]"
+        } py-16 z-[999]`}
+      >
+        <div className="flex flex-col gap-4">
+          <NavLink
+            onClick={() => setToggleNav(false)}
+            className="py-2 px-5 hover:bg-neutral-300"
+            to="/"
+          >
+            Home
+          </NavLink>
+          <NavLink
+            onClick={() => setToggleNav(false)}
+            className="py-2 px-5 hover:bg-neutral-300"
+            to="/collection"
+          >
+            Collection
+          </NavLink>
+          <NavLink
+            onClick={() => setToggleNav(false)}
+            className="py-2 px-5 hover:bg-neutral-300"
+            to="/about"
+          >
+            About
+          </NavLink>
+          <NavLink
+            onClick={() => setToggleNav(false)}
+            className="py-2 px-5 hover:bg-neutral-300"
+            to="/contact"
+          >
+            Contact
+          </NavLink>
         </div>
-      )}
+      </div>
+      {/* )} */}
     </div>
   );
 };

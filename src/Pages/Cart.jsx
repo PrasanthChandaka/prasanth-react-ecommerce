@@ -158,9 +158,11 @@ const Cart = () => {
                 ${total}
               </span>
             </p>
-            <button className="btn-primary h-[38px]" type="button">
-              Go to Checkout
-            </button>
+            <Link to="/place-order">
+              <button className="btn-primary h-[38px]" type="button">
+                Go to Checkout
+              </button>
+            </Link>
           </div>
         </div>
       ) : (

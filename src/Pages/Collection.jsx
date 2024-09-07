@@ -81,7 +81,7 @@ const Collection = () => {
 
   useEffect(() => {
     setFilteredProducts(products);
-  }, []);
+  }, [products]);
 
   useEffect(() => {
     applyFilter();
@@ -93,7 +93,7 @@ const Collection = () => {
   }, [sortType]);
 
   return (
-    <div className="my-20 w-full dark:text-white">
+    <div className="my-5 sm:my-20 w-full dark:text-white">
       <div className="w-full flex flex-col md:flex-row gap-5">
         {/* left filter container */}
 

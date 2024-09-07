@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { assets } from "../assets/assets";
 
 const HeroSection = () => {
@@ -13,12 +14,14 @@ const HeroSection = () => {
             designed to bring out your individuality and cater to your sense of
             style.
           </p>
-          <button
-            type="button"
-            className="px-6 py-3 bg-black text-white dark:bg-white dark:text-black rounded-full w-fit text-nowrap hover:scale-[0.95] transition-all duration-100 font-bold"
-          >
-            Shop Now
-          </button>
+          <Link to="/collection">
+            <button
+              type="button"
+              className="px-6 py-3 bg-black text-white dark:bg-white dark:text-black rounded-full w-fit text-nowrap hover:scale-[0.95] transition-all duration-100 font-bold"
+            >
+              Shop Now
+            </button>
+          </Link>
         </div>
         <img
           className="w-full h-full object-cover"

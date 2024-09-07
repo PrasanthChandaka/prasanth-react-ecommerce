@@ -3,12 +3,11 @@ import { Mail } from "lucide-react";
 const NewsLetter = () => {
   return (
     <div className="max-w-7xl mx-auto px-4">
-      <div className="bg-black p-10 grid grid-cols-1 sm:grid-cols-2 gap-5 rounded-xl my-2 ">
-        <div className="">
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white my-auto text-left">
-            STAY UPTO DATE ABOUT OUR LATEST OFFERS
-          </h1>
-        </div>
+      <div className="bg-transparent dark:text-white border border-neutral-300 dark:border-neutral-700  shadow-lg p-5 sm:p-10 grid grid-cols-1 sm:grid-cols-2 gap-5 rounded-xl my-2 ">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-black my-auto text-left">
+          STAY UPTO DATE ABOUT OUR LATEST OFFERS
+        </h1>
+
         <form
           className="flex flex-col gap-2"
           onSubmit={(e) => e.preventDefault()}
@@ -22,10 +21,7 @@ const NewsLetter = () => {
               required
             />
           </div>
-          <button
-            className="bg-white rounded-full py-2 px-4 font-semibold hover:scale-[0.95] transition-all duration-200 "
-            type="submit"
-          >
+          <button className="btn-primary h-[40px]" type="submit">
             Subscribe
           </button>
         </form>
