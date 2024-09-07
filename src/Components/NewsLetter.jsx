@@ -4,7 +4,7 @@ const NewsLetter = () => {
   return (
     <div className="max-w-7xl mx-auto px-4">
       <div className="bg-transparent dark:text-white border border-neutral-300 dark:border-neutral-700  shadow-lg p-5 sm:p-10 grid grid-cols-1 sm:grid-cols-2 gap-5 rounded-xl my-2 ">
-        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-black my-auto text-left">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-black dark:text-white my-auto text-left">
           STAY UPTO DATE ABOUT OUR LATEST OFFERS
         </h1>
 
@@ -12,10 +12,10 @@ const NewsLetter = () => {
           className="flex flex-col gap-2"
           onSubmit={(e) => e.preventDefault()}
         >
-          <div className="flex bg-white rounded-full px-4 py-2 gap-2 items-center">
+          <div className="flex bg-transparent border border-neutral-300 dark:border-neutral-700 rounded-lg px-4 py-2 gap-2 items-center">
             <Mail size={18} />
             <input
-              className="h-full w-full flex-1 outline-none"
+              className="h-full w-full flex-1 outline-none bg-transparent"
               type="email"
               placeholder="Enter your email address"
               required

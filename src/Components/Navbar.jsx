@@ -63,7 +63,7 @@ const Navbar = () => {
 
   return (
     <div className="sticky top-0 backdrop-blur-lg z-[9999] max-w-7xl mx-auto">
-      <div className="mx-auto relative w-full overflow-hidden flex py-2 px-4 sm:px-6 items-center justify-between gap-2 dark:bg-neutral-950 dark:text-white">
+      <div className="mx-auto relative w-full flex py-2 px-4 sm:px-6 items-center justify-between gap-2 dark:bg-neutral-950 dark:text-white">
         <Link to="/">
           <h1 className="font-serif uppercase font-bold text-2xl bg-gradient-to-r from-orange-500 to-orange-900 bg-clip-text text-transparent">
             flyers
@@ -98,8 +98,11 @@ const Navbar = () => {
           <div className="active:bg-neutral-500 transition duration-300 cursor-pointer rounded-full w-fit h-fit p-2">
             <Search size={18} />
           </div>
-          <div className="active:bg-neutral-500 transition duration-300 cursor-pointer rounded-full w-fit h-fit p-2">
+          <div className="group active:bg-neutral-500 transition duration-300 cursor-pointer rounded-full w-fit h-fit p-2">
             <User size={18} />
+            <div className="hidden group-hover:block absolute right-8 top-10 bg-black dark:bg-white z-[9999999] text-white dark:text-black p-3 rounded-md">
+              <Link to="/signin">Logout</Link>
+            </div>
           </div>
           <div
             className={`active:bg-neutral-500 transition duration-300 cursor-pointer relative rounded-full w-fit h-fit p-2 4 ${
