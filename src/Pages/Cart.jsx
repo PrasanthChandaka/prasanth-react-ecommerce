@@ -166,14 +166,18 @@ const Cart = () => {
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 items-center justify-center gap-5 w-full min-[300px]:max-w-[400px] mx-auto">
+        <div className="flex h-[80vh] flex-col items-center justify-center gap-5 w-full mx-auto">
           <div className="">
-            <img src={emptyCartImage} alt="emply-img" />
+            <img
+              src={emptyCartImage}
+              alt="emply-img"
+              className="max-w-[300px]"
+            />
           </div>
           <div className="flex flex-col items-center text-center">
             <h2 className="heading2 h-[38px] mb-3">Your cart is Empty!</h2>
             <Link to="/collection">
-              <button className="btn-primary w-fit">SHOP NOW</button>
+              <button className="btn-primary w-fit h-[40px]">SHOP NOW</button>
             </Link>
           </div>
         </div>

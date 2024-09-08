@@ -1,5 +1,5 @@
 import Navbar from "./Components/Navbar";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
 import Collection from "./Pages/Collection";
 import About from "./Pages/About";
@@ -15,6 +15,7 @@ import PlaceOrder from "./Pages/PlaceOrder";
 import Orders from "./Pages/Orders";
 import Login from "./Pages/Login";
 import SignUp from "./Pages/SignUp";
+import NotFound from "./Pages/NotFound";
 
 const App = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -44,7 +45,7 @@ const App = () => {
   return (
     <>
       <Navbar />
-      <div className="relative mx-auto w-full max-w-7xl px-4 overflow-hidden">
+      <div className="relative mx-auto w-full max-w-7xl px-4">
         <Toaster position="bottom-center" />
         <Routes>
           <Route path="/login" element={<Login />} />
@@ -57,6 +58,8 @@ const App = () => {
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/place-order" element={<PlaceOrder />} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="/not-found" element={<NotFound />} />
+          <Route path="*" element={<Navigate to="/not-found" replace />} />
         </Routes>
         <div
           onClick={scrollToTop}

@@ -62,7 +62,7 @@ const Navbar = () => {
 
   return (
     <div className="sticky top-0 backdrop-blur-lg z-[9999] max-w-7xl mx-auto">
-      <div className="mx-auto relative w-full flex py-2 px-4 sm:px-6 items-center justify-between gap-2 dark:bg-neutral-950 dark:text-white">
+      <div className="mx-auto relative w-full flex py-2 px-4 sm:px-6 items-center justify-between gap-2 dark:bg-neutral-950 dark:text-white flex-wrap">
         <Link to="/">
           <h1 className="font-serif uppercase font-bold text-2xl bg-gradient-to-r from-orange-500 to-orange-900 bg-clip-text text-transparent">
             flyers
@@ -87,7 +87,7 @@ const Navbar = () => {
             <p className="hidden h-[2px] rounded-full absolute top-6 w-full mx-auto bg-black dark:bg-white"></p>
           </NavLink>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center flex-wrap gap-2">
           <div
             onClick={toggleDarkTheme}
             className="active:bg-neutral-500 cursor-pointer rounded-full p-2 transition duration-300"
