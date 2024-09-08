@@ -1,4 +1,3 @@
-import { assets } from "../assets/assets";
 import { Link, NavLink } from "react-router-dom";
 import {
   AlignRight,
@@ -101,7 +100,7 @@ const Navbar = () => {
           <div className="group active:bg-neutral-500 transition duration-300 cursor-pointer rounded-full w-fit h-fit p-2">
             <User size={18} />
             <div className="hidden group-hover:block absolute right-8 top-10 bg-black dark:bg-white z-[9999999] text-white dark:text-black p-3 rounded-md">
-              <Link to="/signin">Logout</Link>
+              <Link to="/login">Login/signUp</Link>
             </div>
           </div>
           <div
